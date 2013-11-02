@@ -29,6 +29,9 @@ public class LogoutRoute extends JsonTransformer {
         final String token = request.headers("token");
 
         final Token theToken = Ebean.find(Token.class).where().eq("token", token).findUnique();
+        if(theToken == null){
+            return "";
+        }
         Ebean.delete(theToken);
         return "";
     }

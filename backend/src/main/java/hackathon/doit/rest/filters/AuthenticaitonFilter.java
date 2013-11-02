@@ -19,6 +19,10 @@ public class AuthenticaitonFilter extends Filter {
         super(path, acceptType);
     }
 
+    public AuthenticaitonFilter(String path) {
+        super(path);
+    }
+
     @Override
     public void handle(Request request, Response response) {
         final String authenticationToken = request.headers("token");
@@ -29,6 +33,7 @@ public class AuthenticaitonFilter extends Filter {
         if (token == null) {
             response.body(GoogleOpenIdHelper.INVALID_AUTHENTICATION_JSON);
             response.status(403);
+            halt();
         }
     }
 
