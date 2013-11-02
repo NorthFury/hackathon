@@ -7,53 +7,40 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 public class Account extends BaseEntity {
 
-	private String email;
+    private String email;
 
-	@OneToMany(cascade=CascadeType.MERGE)
-	private List<AccountTask> tasks = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<AccountTask> tasks = new ArrayList<>();
 
-	@ManyToMany
-	private List<Achievement> achievements;
+    @ManyToMany
+    private List<Achievement> achievements;
 
-	@OneToMany(cascade = CascadeType.ALL)
-        @JsonIgnore
-	private List<Token> tokens = new ArrayList<>();
+    public String getEmail() {
+        return email;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public List<AccountTask> getTasks() {
+        return tasks;
+    }
 
-	public List<AccountTask> getTasks() {
-		return tasks;
-	}
+    public void setTasks(List<AccountTask> tasks) {
+        this.tasks = tasks;
+    }
 
-	public void setTasks(List<AccountTask> tasks) {
-		this.tasks = tasks;
-	}
+    public List<Achievement> getAchievements() {
+        return achievements;
+    }
 
-	public List<Token> getTokens() {
-		return tokens;
-	}
-
-	public void setTokens(List<Token> tokens) {
-		this.tokens = tokens;
-	}
-
-	public List<Achievement> getAchievements() {
-		return achievements;
-	}
-
-	public void setAchievements(List<Achievement> achievements) {
-		this.achievements = achievements;
-	}
+    public void setAchievements(List<Achievement> achievements) {
+        this.achievements = achievements;
+    }
 
 }

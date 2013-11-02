@@ -57,8 +57,7 @@ public class LoginRoute extends JsonTransformer {
     }
 
     private void updateToken(Account account, Token t) {
-        account.getTokens().add(t);
-        t.setUsername(account.getEmail());
+        t.setAccount(account);
         Ebean.save(t);
     }
 
