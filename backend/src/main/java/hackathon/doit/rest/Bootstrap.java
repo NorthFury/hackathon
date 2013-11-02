@@ -28,11 +28,7 @@ public class Bootstrap {
     }
 
     private static void configFilters() {
-        Spark.before(new AuthenticaitonFilter("/achievements"));
-        Spark.before(new AuthenticaitonFilter("/activities"));
         Spark.before(new AuthenticaitonFilter("/account/:userId/task"));
-        Spark.before(new AuthenticaitonFilter("/account/:userId/task/:taskId"));
-        Spark.before(new AuthenticaitonFilter("/account/:userId/tasks"));
-        Spark.before(new AuthenticaitonFilter("/account/:userId/tasks/:taskId"));
+        Spark.before(new AuthenticaitonFilter("/account/:userId/task/:taskId/markDone"));
     }
 }

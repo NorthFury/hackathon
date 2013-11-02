@@ -47,23 +47,23 @@
 .checked-img{
 	content:url(../img/checked-true.png);
 	height : 30px;
-	width  : 30px;"
+	width  : 30px;
 }
 
 .non-checked-img{
 	content:url(../img/checked-false.png);
 	height : 30px;
-	width  : 30px;"
+	width  : 30px;
 }
 
 .angry-gif{
 	content:url(../img/angry-smiley-face-swearing-emoticon.gif);
 	height : 40px;
-	width  : 40px;"
+	width  : 40px;
 }
 
 .happy-gif{
 	content:url(../img/super-happy-dance-smiley-emoticon.gif);
 	height : 40px;
-	width  : 40px;"
+	width  : 40px;
 }
