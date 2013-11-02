@@ -2,11 +2,10 @@ package hackathon.doit.rest;
 
 import hackathon.doit.model.Account;
 import hackathon.doit.model.Task;
-
-import com.avaje.ebean.Ebean;
-
 import spark.Request;
 import spark.Response;
+
+import com.avaje.ebean.Ebean;
 
 /**
  * @author Ariel-Laptop
@@ -20,9 +19,8 @@ public class GetTaskRoute extends JsonTransformer {
 
 	@Override
 	public Object handle(Request request, Response response) {
-		String username = request.params(":username");
-		Account account = Ebean.find(Account.class).where()
-				.eq("username", username).findUnique();
+		String userId = request.params(":userId");
+		Account account = Ebean.find(Account.class, userId);
 		
 		long taskId = Long.parseLong(request.params(":taskId"));
 		Task task = Ebean.find(Task.class, taskId);
