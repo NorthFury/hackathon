@@ -1,34 +1,28 @@
 package hackathon.doit.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 public class Account extends BaseEntity {
 
-	private String username;
 	private String email;
 
-	@ManyToMany
-	private List<Task> tasks;
+	@OneToMany(cascade=CascadeType.MERGE)
+	private List<AccountTask> tasks = new ArrayList<>();
 
 	@ManyToMany
 	private List<Achievement> achievements;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Token> tokens;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+        @JsonIgnore
+	private List<Token> tokens = new ArrayList<>();
 
 	public String getEmail() {
 		return email;
@@ -38,11 +32,11 @@ public class Account extends BaseEntity {
 		this.email = email;
 	}
 
-	public List<Task> getTasks() {
+	public List<AccountTask> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(List<AccountTask> tasks) {
 		this.tasks = tasks;
 	}
 

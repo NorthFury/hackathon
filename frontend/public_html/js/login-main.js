@@ -1,16 +1,17 @@
-require(['zepto', 'settings'], function($, settings) {
+require(['jquery', 'settings'], function($, settings) {
     $.ajax({
         contentType: 'application/json',
         data: location.search.substring(1),
         dataType: 'json',
         success: function(data) {
-            console.log(data);
+            window.parent.login(data);
+            window.close();
         },
         error: function() {
-            location.href = settings.getGoogleOpenIdLink();
+            console.log('login failure');
         },
         processData: false,
         type: 'POST',
-        url: settings.domain + 'accounts/login'
+        url: settings.apiDomain + 'accounts/login'
     });
 });

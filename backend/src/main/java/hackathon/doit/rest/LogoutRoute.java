@@ -5,6 +5,8 @@
  */
 package hackathon.doit.rest;
 
+import com.avaje.ebean.Ebean;
+import hackathon.doit.model.Token;
 import spark.Request;
 import spark.Response;
 
@@ -24,7 +26,14 @@ public class LogoutRoute extends JsonTransformer {
 
     @Override
     public Object handle(Request request, Response response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String token = request.headers("token");
+
+        final Token theToken = Ebean.find(Token.class).where().eq("token", token).findUnique();
+        if(theToken == null){
+            return "";
+        }
+        Ebean.delete(theToken);
+        return "";
     }
 
 }
