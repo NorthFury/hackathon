@@ -9,12 +9,10 @@ import com.avaje.ebean.Ebean;
 import hackathon.doit.model.Account;
 import hackathon.doit.model.Token;
 import hackathon.doit.rest.util.GoogleOpenIdHelper;
-import java.io.IOException;
-import java.util.ArrayList;
+import hackathon.doit.rest.util.JsonResponseCreator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import spark.Request;
 import spark.Response;
 
@@ -51,32 +49,18 @@ public class LoginRoute extends JsonTransformer {
                     .eq("username", username).findUnique();
             Token t = new Token();
             t.setToken(authenticationToken);
-            if (account != null) {
-                updateToken(account, t);
-                return "{\"token\":\""
-                        + authenticationToken
-                        + "\", \"account\":"
-                        + asJson(account)
-                        + "}";
-            } else {
-                final Account registeredAccount = registerAccount(username, t);
-                return "{\"token\":\""
-                        + authenticationToken
-                        + "\", \"account\":"
-                        + asJson(registeredAccount)
-                        + "}";
+            if (account == null) {
+                account = registerAccount(username);
             }
-        }
-    }
+            updateToken(account, t);
 
-    private String asJson(Object o) {
-        final ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(o);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginRoute.class.getName()).log(Level.SEVERE, null, ex);
+            Map<String, Object> responseObject = new HashMap<>();
+            responseObject.put("token", authenticationToken);
+            responseObject.put("account", account);
+
+            final String callback = request.queryParams("callback").toString();
+            return JsonResponseCreator.getJsonResponse(callback, responseObject);
         }
-        return "";
     }
 
     private void updateToken(Account account, Token t) {
@@ -85,12 +69,9 @@ public class LoginRoute extends JsonTransformer {
         Ebean.save(t);
     }
 
-    private Account registerAccount(final String username, Token t) {
+    private Account registerAccount(final String username) {
         Account newAccount = new Account();
         newAccount.setEmail(username);
-        newAccount.setTokens(new ArrayList<Token>());
-        t.setUsername(username);
-        newAccount.getTokens().add(t);
         Ebean.save(newAccount);
         return newAccount;
     }
