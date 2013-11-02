@@ -9,6 +9,8 @@ public class Task extends BaseEntity{
 
 	@ManyToOne(cascade=CascadeType.MERGE)
 	private Activity activity;
+	
+	private String name;
 
 	public Activity getActivity() {
 		return activity;
@@ -16,6 +18,14 @@ public class Task extends BaseEntity{
 
 	public void setActivity(Activity activity) {
 		this.activity = activity;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

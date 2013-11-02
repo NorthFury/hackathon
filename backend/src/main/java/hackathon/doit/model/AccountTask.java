@@ -1,12 +1,13 @@
 package hackathon.doit.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
 public class AccountTask extends BaseEntity{
-
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Task task;
 	
 	private int importance;
