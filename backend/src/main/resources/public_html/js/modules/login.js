@@ -11,8 +11,14 @@ define(['settings'], function(settings) {
         var openIdLink = settings.getGoogleOpenIdLink();
 
         window.login = function(data) {
-            console.log(data);
+            settings.login = data;
+            delete(window.login);
         };
+
+        window.loginFailed = function() {
+            console.log("Login failed");
+        };
+
         popitup(openIdLink);
     };
 });
