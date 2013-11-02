@@ -9,7 +9,6 @@ require(['jquery', 'settings'], function($, settings) {
         },
         error: function() {
             console.log('login failure');
-            window.close();
         },
         processData: false,
         type: 'POST',
