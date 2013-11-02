@@ -1,22 +1,19 @@
 package hackathon.doit.rest.filters;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.avaje.ebean.Ebean;
+import hackathon.doit.model.Token;
+import hackathon.doit.rest.util.GoogleOpenIdHelper;
 import spark.Filter;
 import spark.Request;
 import spark.Response;
 
 /**
  *
- * @author Dutza
+ * @author Andrei Onu
  */
 public class AuthenticaitonFilter extends Filter {
 
-    private static final String OPEN_ID_TOKEN = "token";
+    private static final String USERNAME_ATTRIBUTE = "openid.ext1.value.email";
 
     public AuthenticaitonFilter(String path, String acceptType) {
         super(path, acceptType);
@@ -24,19 +21,15 @@ public class AuthenticaitonFilter extends Filter {
 
     @Override
     public void handle(Request request, Response response) {
-        try {
-            final String token = request.headers(OPEN_ID_TOKEN);
+        final String authenticationToken = request.headers("token");
+        final String username = request.queryMap().get(USERNAME_ATTRIBUTE).value();
 
-            HttpPost post = new HttpPost("google OpenID URI");
-            final String openIdJsonBody = "";
-            post.setEntity(new StringEntity(openIdJsonBody, "UTF-8"));
-            post.addHeader("accept", "application/json");
+        final Token token = Ebean.find(Token.class).where().eq("username", username).eq("token", authenticationToken).findUnique();
 
-            DefaultHttpClient client = new DefaultHttpClient();
-
-            client.execute(post);
-        } catch (IOException ex) {
-            Logger.getLogger(AuthenticaitonFilter.class.getName()).log(Level.SEVERE, null, ex);
+        if (token == null) {
+            response.body(GoogleOpenIdHelper.INVALID_AUTHENTICATION_JSON);
+            response.status(403);
         }
     }
+
 }
