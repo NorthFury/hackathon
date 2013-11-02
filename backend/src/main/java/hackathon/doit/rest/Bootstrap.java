@@ -11,8 +11,15 @@ public class Bootstrap {
     public static void main(String[] args) {
         Spark.setPort(8085);
         Ebean.find(Account.class).findList();
-        Spark.post(new RegisterRoute("/user/register"));
-        Spark.post(new LoginRoute("/user/login"));
-        Spark.get(new LogoutRoute("/user/logout"));
+        
+        //Login/Register routes
+        Spark.post(new RegisterRoute("/account/register"));
+        Spark.post(new LoginRoute("/account/login"));
+        Spark.get(new LogoutRoute("/account/logout"));
+        
+        Spark.get(new GetAchievementsRoute("/achievements"));
+        Spark.get(new GetActivitiesRoute("/activities"));
+
+    
     }
 }

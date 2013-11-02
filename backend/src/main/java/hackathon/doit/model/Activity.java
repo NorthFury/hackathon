@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Activity extends BaseEntity{
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="activity")
 	private List<Task> tasks;
 
 	public List<Task> getTasks() {
