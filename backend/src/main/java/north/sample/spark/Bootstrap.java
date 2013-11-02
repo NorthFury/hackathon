@@ -1,10 +1,8 @@
 package north.sample.spark;
 
-import north.sample.spark.book.DeleteBookRoute;
-import north.sample.spark.book.GetBooksRoute;
-import north.sample.spark.book.GetBookRoute;
-import north.sample.spark.book.PutBookRoute;
-import north.sample.spark.book.PostBookRoute;
+import north.sample.spark.book.LoginRoute;
+import north.sample.spark.book.LogoutRoute;
+import north.sample.spark.book.RegisterRoute;
 import spark.Spark;
 
 public class Bootstrap {
@@ -12,10 +10,8 @@ public class Bootstrap {
     public static void main(String[] args) {
         Spark.setPort(8085);
 
-        Spark.get(new GetBooksRoute("/books"));
-        Spark.get(new GetBookRoute("/books/:id"));
-        Spark.post(new PostBookRoute("/books"));
-        Spark.put(new PutBookRoute("/books/:id"));
-        Spark.delete(new DeleteBookRoute("/books/:id"));
+        Spark.post(new RegisterRoute("/user/register"));
+        Spark.post(new LoginRoute("/user/login"));
+        Spark.get(new LogoutRoute("/user/logout"));
     }
 }
