@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 public class Account extends BaseEntity {
@@ -20,6 +21,7 @@ public class Account extends BaseEntity {
 	private List<Achievement> achievements;
 
 	@OneToMany(cascade = CascadeType.ALL)
+        @JsonIgnore
 	private List<Token> tokens = new ArrayList<>();
 
 	public String getEmail() {

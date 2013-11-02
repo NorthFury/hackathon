@@ -9,8 +9,12 @@ import com.avaje.ebean.Ebean;
 import hackathon.doit.model.Account;
 import hackathon.doit.model.Token;
 import hackathon.doit.rest.util.GoogleOpenIdHelper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import spark.Request;
 import spark.Response;
 
@@ -39,25 +43,40 @@ public class LoginRoute extends JsonTransformer {
             response.status(403);
             return null;
         } else {
-            String authenticationToken = generateToken(request);
+            final String username = request.queryMap().get(USERNAME_ATTRIBUTE).value();
 
-            return "{\"token\":\"" + authenticationToken + "\"}";
+            final String authenticationToken = UUID.randomUUID().toString();
+
+            Account account = Ebean.find(Account.class).where()
+                    .eq("username", username).findUnique();
+            Token t = new Token();
+            t.setToken(authenticationToken);
+            if (account != null) {
+                updateToken(account, t);
+                return "{\"token\":\""
+                        + authenticationToken
+                        + "\", \"account\":"
+                        + asJson(account)
+                        + "}";
+            } else {
+                final Account registeredAccount = registerAccount(username, t);
+                return "{\"token\":\""
+                        + authenticationToken
+                        + "\", \"account\":"
+                        + asJson(registeredAccount)
+                        + "}";
+            }
         }
     }
 
-    private String generateToken(Request request) {
-        final String authenticationToken = UUID.randomUUID().toString();
-        final String username = request.queryMap().get(USERNAME_ATTRIBUTE).value();
-        Account account = Ebean.find(Account.class).where()
-                .eq("username", username).findUnique();
-        Token t = new Token();
-        t.setToken(authenticationToken);
-        if (account != null) {
-            updateToken(account, t);
-        } else {
-            registerAccount(username, t);
+    private String asJson(Object o) {
+        final ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(o);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginRoute.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return authenticationToken;
+        return "";
     }
 
     private void updateToken(Account account, Token t) {
@@ -66,13 +85,13 @@ public class LoginRoute extends JsonTransformer {
         Ebean.save(t);
     }
 
-    private void registerAccount(final String username, Token t) {
+    private Account registerAccount(final String username, Token t) {
         Account newAccount = new Account();
         newAccount.setEmail(username);
         newAccount.setTokens(new ArrayList<Token>());
         t.setUsername(username);
         newAccount.getTokens().add(t);
         Ebean.save(newAccount);
+        return newAccount;
     }
-
 }
