@@ -10,6 +10,8 @@ public class AccountTask extends BaseEntity{
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Task task;
 	
+	private boolean done;
+	
 	private int importance;
 	
 	public Task getTask() {
@@ -23,6 +25,12 @@ public class AccountTask extends BaseEntity{
 	}
 	public void setImportance(int importance) {
 		this.importance = importance;
+	}
+	public boolean isDone() {
+		return done;
+	}
+	public void setDone(boolean done) {
+		this.done = done;
 	}
 	
 	

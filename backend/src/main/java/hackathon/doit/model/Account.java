@@ -20,7 +20,7 @@ public class Account extends BaseEntity {
 	private List<Achievement> achievements;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Token> tokens;
+	private List<Token> tokens = new ArrayList<>();
 
 	public String getEmail() {
 		return email;

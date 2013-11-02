@@ -1,5 +1,6 @@
 package hackathon.doit.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,7 @@ public class Activity extends BaseEntity {
 	private static final long serialVersionUID = -4005479010028032916L;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="activity")
-	private List<Task> tasks;
+	private List<Task> tasks = new ArrayList<>();
 
 	public List<Task> getTasks() {
 		return tasks;
