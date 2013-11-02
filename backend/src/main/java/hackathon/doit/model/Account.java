@@ -13,8 +13,8 @@ public class Account extends BaseEntity {
 	private String username;
 	private String email;
 
-	@ManyToMany
-	private List<Task> tasks;
+	@OneToMany(cascade=CascadeType.MERGE)
+	private List<AccountTask> tasks;
 
 	@ManyToMany
 	private List<Achievement> achievements;
@@ -38,11 +38,11 @@ public class Account extends BaseEntity {
 		this.email = email;
 	}
 
-	public List<Task> getTasks() {
+	public List<AccountTask> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(List<AccountTask> tasks) {
 		this.tasks = tasks;
 	}
 
