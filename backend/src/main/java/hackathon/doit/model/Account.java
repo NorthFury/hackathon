@@ -1,5 +1,6 @@
 package hackathon.doit.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,7 @@ public class Account extends BaseEntity {
 	private String email;
 
 	@OneToMany(cascade=CascadeType.MERGE)
-	private List<AccountTask> tasks;
+	private List<AccountTask> tasks = new ArrayList<>();
 
 	@ManyToMany
 	private List<Achievement> achievements;

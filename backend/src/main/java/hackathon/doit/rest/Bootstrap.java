@@ -1,9 +1,5 @@
 package hackathon.doit.rest;
 
-import hackathon.doit.model.Account;
-
-import com.avaje.ebean.Ebean;
-
 import spark.Spark;
 
 public class Bootstrap {
@@ -20,6 +16,10 @@ public class Bootstrap {
         Spark.get(new GetAchievementsRoute("/achievements"));
         Spark.get(new GetActivitiesRoute("/activities"));
 
+        Spark.post(new PostTaskRoute("/account/:username/postTask"));
+        Spark.put(new PutTaskRoute("/account/:username/task/:taskId"));
+        Spark.get(new GetTasksRoute("/account/:username/tasks"));
+        Spark.get(new GetTaskRoute("/account/:username/tasks/:taskId"));
     
     }
 }
