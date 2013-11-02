@@ -11,7 +11,6 @@ import hackathon.doit.model.Token;
 import hackathon.doit.rest.util.GoogleOpenIdHelper;
 import java.util.ArrayList;
 import java.util.UUID;
-import javax.persistence.OptimisticLockException;
 import spark.Request;
 import spark.Response;
 
@@ -46,7 +45,7 @@ public class LoginRoute extends JsonTransformer {
         }
     }
 
-    private String generateToken(Request request) throws OptimisticLockException {
+    private String generateToken(Request request) {
         final String authenticationToken = UUID.randomUUID().toString();
         final String username = request.queryMap().get(USERNAME_ATTRIBUTE).value();
         Account account = Ebean.find(Account.class).where()
@@ -61,15 +60,15 @@ public class LoginRoute extends JsonTransformer {
         return authenticationToken;
     }
 
-    private void updateToken(Account account, Token t) throws OptimisticLockException {
+    private void updateToken(Account account, Token t) {
         account.getTokens().add(t);
-        t.setUsername(account.getUsername());
+        t.setUsername(account.getEmail());
         Ebean.save(t);
     }
 
-    private void registerAccount(final String username, Token t) throws OptimisticLockException {
+    private void registerAccount(final String username, Token t) {
         Account newAccount = new Account();
-        newAccount.setUsername(username);
+        newAccount.setEmail(username);
         newAccount.setTokens(new ArrayList<Token>());
         t.setUsername(username);
         newAccount.getTokens().add(t);

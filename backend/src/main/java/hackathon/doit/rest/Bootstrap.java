@@ -11,7 +11,6 @@ public class Bootstrap {
         Ebean.find(Account.class).findList();
         
         //Login/Register routes
-        Spark.post(new RegisterRoute("/account/register"));
         Spark.post(new LoginRoute("/account/login"));
         Spark.get(new LogoutRoute("/account/logout"));
         

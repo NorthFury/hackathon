@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Account extends BaseEntity {
 
-	private String username;
 	private String email;
 
 	@OneToMany(cascade=CascadeType.MERGE)
@@ -22,14 +21,6 @@ public class Account extends BaseEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Token> tokens;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public String getEmail() {
 		return email;
