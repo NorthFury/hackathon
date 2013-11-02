@@ -8,6 +8,7 @@ public class Bootstrap {
     public static void main(String[] args) {
         Spark.setPort(8085);
         // Ebean.find(Account.class).findList();
+        Spark.staticFileLocation("/public_html");
         
         configFilters();
 

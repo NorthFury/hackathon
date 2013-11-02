@@ -3,7 +3,10 @@ package hackathon.doit.rest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.codehaus.jackson.map.ObjectMapper;
+
+import spark.Response;
 import spark.ResponseTransformerRoute;
 
 public abstract class JsonTransformer extends ResponseTransformerRoute {
@@ -26,6 +29,12 @@ public abstract class JsonTransformer extends ResponseTransformerRoute {
             return "Serialization error";
         }
     }
+    
+    protected Object getError(Response response) {
+		response.status(404); // 404 Not found
+		
+		return createErrorResponse("Not found");
+	}
 
     protected static Map<String, String> createErrorResponse(String message) {
         HashMap<String, String> response = new HashMap<>();

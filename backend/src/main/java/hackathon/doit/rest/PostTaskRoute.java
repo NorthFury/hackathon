@@ -32,9 +32,7 @@ public class PostTaskRoute extends JsonTransformer {
         	task = mapper.readValue(request.body(), Task.class);
         } catch (IOException e) {
                 
-        	response.status(500); // Server-side error test
-                
-            return createErrorResponse("Task couldn't be saved because it's not in a valid format");
+        	return getError(response);
         }
                 
         AccountTask accountTask = new AccountTask();

@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hackathon.doit.rest;
 
 import com.avaje.ebean.Ebean;
 import hackathon.doit.model.Account;
 import hackathon.doit.model.Token;
 import hackathon.doit.rest.util.GoogleOpenIdHelper;
-import hackathon.doit.rest.util.JsonResponseCreator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -58,8 +52,7 @@ public class LoginRoute extends JsonTransformer {
             responseObject.put("token", authenticationToken);
             responseObject.put("account", account);
 
-            final String callback = request.queryParams("callback").toString();
-            return JsonResponseCreator.getJsonResponse(callback, responseObject);
+            return responseObject;
         }
     }
 

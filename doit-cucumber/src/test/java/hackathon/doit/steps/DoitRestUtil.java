@@ -4,7 +4,6 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.response.ResponseBody;
 
-import static com.jayway.restassured.RestAssured.expect;
 
 public class DoitRestUtil {
 
@@ -16,7 +15,7 @@ public class DoitRestUtil {
 
 	public static int getStatus(String path) {
 
-		Response response = expect().statusCode(404).when().get(path);
+		Response response = RestAssured.get(path);
 		ResponseBody body = response.getBody();
 		String status = body.asString();
 		return Integer.parseInt(status);
