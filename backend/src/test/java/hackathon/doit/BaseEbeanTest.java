@@ -38,7 +38,7 @@ public class BaseEbeanTest {
         server.execute(server.createCallableSql(createDdl));
     }
 
-    protected void importData(String importFile) throws URISyntaxException, IOException {
+    public void importData(String importFile) throws URISyntaxException, IOException {
         URI resource = getClass().getClassLoader().getResource(importFile).toURI();
         Path path = Paths.get(resource);
         String dataSql = new String(Files.readAllBytes(path));
