@@ -10,7 +10,7 @@ public class Bootstrap {
         // Ebean.find(Account.class).findList();
         Spark.staticFileLocation("/public_html");
         
-        configFilters();
+//        configFilters();
 
         Spark.post(new LoginRoute("/account/login"));
         Spark.get(new LogoutRoute("/account/logout"));
