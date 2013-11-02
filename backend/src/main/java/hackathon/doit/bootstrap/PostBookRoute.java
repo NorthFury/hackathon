@@ -1,9 +1,10 @@
-package north.sample.spark.book;
+package hackathon.doit.bootstrap;
+
+import hackathon.doit.model.Book;
+import hackathon.doit.rest.JsonTransformer;
 
 import java.io.IOException;
 
-import north.sample.domain.Book;
-import north.sample.spark.JsonTransformer;
 import spark.Request;
 import spark.Response;
 

@@ -1,4 +1,4 @@
-package north.sample.domain;
+package hackathon.doit.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

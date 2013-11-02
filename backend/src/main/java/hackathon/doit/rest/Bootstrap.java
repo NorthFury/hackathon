@@ -1,10 +1,10 @@
-package north.sample.spark;
+package hackathon.doit.rest;
 
-import north.sample.spark.book.DeleteBookRoute;
-import north.sample.spark.book.GetBooksRoute;
-import north.sample.spark.book.GetBookRoute;
-import north.sample.spark.book.PutBookRoute;
-import north.sample.spark.book.PostBookRoute;
+import hackathon.doit.bootstrap.DeleteBookRoute;
+import hackathon.doit.bootstrap.GetBookRoute;
+import hackathon.doit.bootstrap.GetBooksRoute;
+import hackathon.doit.bootstrap.PostBookRoute;
+import hackathon.doit.bootstrap.PutBookRoute;
 import spark.Spark;
 
 public class Bootstrap {

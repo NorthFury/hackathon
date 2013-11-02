@@ -1,8 +1,10 @@
-package north.sample.spark.book;
+package hackathon.doit.bootstrap;
+
+import hackathon.doit.model.Book;
+import hackathon.doit.rest.JsonTransformer;
 
 import com.avaje.ebean.Ebean;
-import north.sample.domain.Book;
-import north.sample.spark.JsonTransformer;
+
 import spark.Request;
 import spark.Response;
 

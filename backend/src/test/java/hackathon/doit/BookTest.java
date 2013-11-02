@@ -1,10 +1,13 @@
-package north.sample;
+package hackathon.doit;
 
 import com.avaje.ebean.Ebean;
+
+import hackathon.doit.model.Book;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
-import north.sample.domain.Book;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
