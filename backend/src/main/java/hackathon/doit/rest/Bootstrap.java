@@ -7,17 +7,16 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         Spark.setPort(8085);
-        // Ebean.find(Account.class).findList();
+//        Ebean.find(Account.class).findList();
         Spark.staticFileLocation("/public_html");
-        
-//        configFilters();
+
+        configFilters();
 
         Spark.post(new LoginRoute("/account/login"));
         Spark.get(new LogoutRoute("/account/logout"));
 
         Spark.get(new GetAchievementsRoute("/achievements"));
         Spark.get(new GetActivitiesRoute("/activities"));
-
 
         // tasks
         Spark.post(new PostTaskRoute("/account/:userId/task"));
@@ -31,9 +30,9 @@ public class Bootstrap {
     private static void configFilters() {
         Spark.before(new AuthenticaitonFilter("/achievements"));
         Spark.before(new AuthenticaitonFilter("/activities"));
-        Spark.before(new AuthenticaitonFilter("/account/:username/task"));
-        Spark.before(new AuthenticaitonFilter("/account/:username/task/:taskId"));
-        Spark.before(new AuthenticaitonFilter("/account/:username/tasks"));
-        Spark.before(new AuthenticaitonFilter("/account/:username/tasks/:taskId"));
+        Spark.before(new AuthenticaitonFilter("/account/:userId/task"));
+        Spark.before(new AuthenticaitonFilter("/account/:userId/task/:taskId"));
+        Spark.before(new AuthenticaitonFilter("/account/:userId/tasks"));
+        Spark.before(new AuthenticaitonFilter("/account/:userId/tasks/:taskId"));
     }
 }

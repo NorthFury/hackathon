@@ -24,7 +24,7 @@ public class GoogleOpenIdHelper {
     private static final String openidmodeid_res = "openid.mode=id_res";
     private static final String openidmodecheck_authentication = "openid.mode=check_authentication";
 
-    public boolean isAuthenticated(Request request) {
+    public boolean isNotAuthenticated(Request request) {
         String googleResponseString = getGoogleAuthenticationStatus(request);
         return googleResponseString.contains("is_valid:false");
     }
