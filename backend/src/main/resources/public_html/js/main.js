@@ -1,6 +1,11 @@
-require(['jquery', 'login'], function($, login) {
+require(['jquery', 'underscore', 'settings', 'login', 'viewtasks'], function($, _, settings, login, viewtasks) {
     $('#loginButton').on('click', function() {
-        var container = $('.starter-template');
         login();
+    });
+    $('#doitButton').on('click', function() {
+        if (!_.isUndefined(settings.login)) {
+            var container = $('#container');
+            viewtasks(container);
+        }
     });
 });
