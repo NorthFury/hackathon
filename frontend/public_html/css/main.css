@@ -5,3 +5,41 @@
     padding: 54px 15px;
     text-align: center;
 }
+.activities{
+    width: 160px;
+    margin-bottom: 10px;
+}
+.activities .btn-activity{
+    width: 100%;
+    text-align: left;
+}
+.activities .btn-activity .caret{
+    float: right;
+    position: relative;
+    top: -10px;
+}
+.task textarea{
+    border: 1px solid #E2E2E2;
+    display: block;
+    line-height: 20px;
+    min-height: 150px;
+    width: 95%;
+    margin-left: 14px;
+}
+.task p{
+    text-align: left;
+}
+.task .panel-body{
+  text-align: left;
+}
+.panel-heading .panel-title{
+    width: 80%;
+    display: inline-block;
+    text-align: left;
+}
+#saveList{
+    margin-top:20px;
+    margin-left:14px;
+    left:0px;
+    position: absolute;
+}
