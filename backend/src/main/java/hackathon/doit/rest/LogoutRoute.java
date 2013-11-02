@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package north.sample.spark.book;
+package hackathon.doit.rest;
 
-import north.sample.spark.JsonTransformer;
 import spark.Request;
 import spark.Response;
 
@@ -13,13 +12,13 @@ import spark.Response;
  *
  * @author Dutza
  */
-public class RegisterRoute extends JsonTransformer {
+public class LogoutRoute extends JsonTransformer {
 
-    public RegisterRoute(String path) {
+    public LogoutRoute(String path) {
         super(path);
     }
 
-    public RegisterRoute(String path, String acceptType) {
+    public LogoutRoute(String path, String acceptType) {
         super(path, acceptType);
     }
 

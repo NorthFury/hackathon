@@ -1,4 +1,4 @@
-package north.sample.spark;
+package hackathon.doit.rest;
 
 import java.io.IOException;
 import java.util.HashMap;

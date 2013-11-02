@@ -1,8 +1,5 @@
-package north.sample.spark;
+package hackathon.doit.rest;
 
-import north.sample.spark.book.LoginRoute;
-import north.sample.spark.book.LogoutRoute;
-import north.sample.spark.book.RegisterRoute;
 import spark.Spark;
 
 public class Bootstrap {
