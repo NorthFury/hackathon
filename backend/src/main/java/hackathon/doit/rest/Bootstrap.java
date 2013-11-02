@@ -20,7 +20,6 @@ public class Bootstrap {
 
         // tasks
         Spark.post(new PostTaskRoute("/account/:userId/task"));
-        Spark.put(new PutTaskRoute("/account/:userId/task/:taskId"));
         Spark.get(new GetTasksRoute("/account/:userId/tasks"));
         Spark.get(new GetTaskRoute("/account/:userId/tasks/:taskId"));
 
