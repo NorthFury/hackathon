@@ -17,11 +17,15 @@ public class Bootstrap {
         Spark.get(new GetAchievementsRoute("/achievements"));
         Spark.get(new GetActivitiesRoute("/activities"));
 
-        Spark.post(new PostTaskRoute("/account/:username/task"));
-        Spark.put(new PutTaskRoute("/account/:username/task/:taskId"));
-        Spark.get(new GetTasksRoute("/account/:username/tasks"));
-        Spark.get(new GetTaskRoute("/account/:username/tasks/:taskId"));
 
+        // tasks
+        Spark.post(new PostTaskRoute("/account/:userId/task"));
+        Spark.put(new PutTaskRoute("/account/:userId/task/:taskId"));
+        Spark.get(new GetTasksRoute("/account/:userId/tasks"));
+        Spark.get(new GetTaskRoute("/account/:userId/tasks/:taskId"));
+
+        // mark a task as done
+        Spark.put(new MarkDoneRoute("/account/:userId/task/:taskId/markDone"));
     }
 
     private static void configFilters() {

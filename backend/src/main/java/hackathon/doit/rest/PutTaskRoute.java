@@ -7,10 +7,12 @@ import hackathon.doit.model.Account;
 import hackathon.doit.model.AccountTask;
 import hackathon.doit.model.Task;
 
-import com.avaje.ebean.Ebean;
+import java.io.IOException;
 
 import spark.Request;
 import spark.Response;
+
+import com.avaje.ebean.Ebean;
 
 /**
  * @author Ariel-Laptop
@@ -25,21 +27,30 @@ public class PutTaskRoute extends JsonTransformer {
 	@Override
 	public Object handle(Request request, Response response) {
 		
-		String username = request.params(":username");
-		String taskId = request.params(":taskId");
+		String userId = request.params(":userId");
+		Long taskId = Long.parseLong(request.params(":taskId"));
 		
 		Task task = Ebean.find(Task.class, taskId);
 		
-		Account account = Ebean.find(Account.class).where()
-				.eq("username", username).findUnique();
+		Account account = Ebean.find(Account.class, userId);
 		
 		if (!account.getTasks().contains(task)) {
 			return getError(response);
 		} else {
 			AccountTask accountTask = Ebean.find(AccountTask.class).where().eq("task", task).findUnique();
-			accountTask.setTask(task);
 			
-			Ebean.save(accountTask);
+			Task jsonTask = null;
+			
+			try {
+				jsonTask = mapper.readValue(request.body(), Task.class);
+				jsonTask.setId(taskId);
+			} catch (IOException e) {
+				return getError(response);
+			}
+			
+			accountTask.setTask(jsonTask);
+	        
+			Ebean.update(jsonTask);
 			
 			response.status(201); // 201 Created
 	        

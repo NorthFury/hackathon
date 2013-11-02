@@ -18,10 +18,9 @@ public class GetTasksRoute extends JsonTransformer {
 
 	@Override
 	public Object handle(Request request, Response response) {
-		String username = request.params(":username"); 
+		String userId = request.params(":userId"); 
 		
-		Account user = Ebean.find(Account.class).where()
-				.eq("username", username).findUnique();
+		Account user = Ebean.find(Account.class, userId);
 		
 		// get tasks from user
 		return user.getTasks();
