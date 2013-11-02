@@ -35,11 +35,4 @@ public class GetTaskRoute extends JsonTransformer {
 			return getError(response);
 		}
 	}
-
-	private Object getError(Response response) {
-		response.status(404); // 404 Not found
-		
-		return createErrorResponse("Not found");
-	}
-
 }

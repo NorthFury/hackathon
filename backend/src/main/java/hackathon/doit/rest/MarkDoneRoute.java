@@ -47,11 +47,5 @@ public class MarkDoneRoute extends JsonTransformer {
 	        return accountTask;
 		}
 	}
-	
-	private Object getError(Response response) {
-		response.status(404); // 404 Not found
-		
-		return createErrorResponse("Not found");
-	}
 
 }
