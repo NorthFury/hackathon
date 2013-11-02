@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>north.sample</groupId>
-    <artifactId>spark-ebean</artifactId>
-    <name>Spark Ebean</name>
+    <groupId>hackathon</groupId>
+    <artifactId>doit</artifactId>
+    <name>Hackathon Do it</name>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <description>Spark Ebean</description>
+    <description>Hackathon Do it</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,7 +95,7 @@
                 </executions>
                 <configuration>
                     <classSource>target/classes</classSource>
-                    <packages>north.sample.domain.**</packages>
+                    <packages>hackathon.doit.model.**</packages>
                     <transformArgs>debug=1</transformArgs>
                 </configuration>
             </plugin>
