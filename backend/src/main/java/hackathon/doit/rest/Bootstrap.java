@@ -1,5 +1,7 @@
 package hackathon.doit.rest;
 
+import com.avaje.ebean.Ebean;
+import hackathon.doit.model.Account;
 import spark.Spark;
 
 public class Bootstrap {
