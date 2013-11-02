@@ -6,7 +6,7 @@
 package hackathon.doit.rest;
 
 import hackathon.doit.BaseEbeanTest;
-import hackathon.doit.model.Task;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,9 +21,9 @@ import spark.Response;
  *
  * @author Dutza
  */
-public class GetTaskRouteTest extends BaseEbeanTest {
+public class GetTasksRouteTest extends BaseEbeanTest {
 
-    public GetTaskRouteTest() {
+    public GetTasksRouteTest() {
     }
 
     @BeforeClass
@@ -36,7 +36,7 @@ public class GetTaskRouteTest extends BaseEbeanTest {
 
     @Before
     public void setUp() throws Exception {
-        super.importData("testdata/getTaks_route.sql");
+        importData("testdata/getTaks_route.sql");
     }
 
     @After
@@ -44,22 +44,21 @@ public class GetTaskRouteTest extends BaseEbeanTest {
     }
 
     /**
-     * Test of handle method, of class GetTaskRoute.
+     * Test of handle method, of class GetTasksRoute.
      */
     @Test
     public void testHandle() {
         System.out.println("handle");
         Request request = Mockito.mock(Request.class);
+        Response response = Mockito.mock(Response.class);
 
         Mockito.when(request.params(":userId")).thenReturn("1");
-        Mockito.when(request.params(":taskId")).thenReturn("1");
 
-        Response response = Mockito.mock(Response.class);
-        GetTaskRoute instance = new GetTaskRoute("/account/:userId/tasks/:taskId");
+        GetTasksRoute instance = new GetTasksRoute("/account/:userId/tasks");
 
         Object result = instance.handle(request, response);
 
-        assertTrue(result instanceof Task);
+        assertTrue(result instanceof List);
     }
 
 }
