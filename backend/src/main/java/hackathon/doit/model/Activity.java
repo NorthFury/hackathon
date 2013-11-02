@@ -14,6 +14,16 @@ public class Activity extends BaseEntity {
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="activity")
 	private List<Task> tasks = new ArrayList<>();
+	
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public List<Task> getTasks() {
 		return tasks;
@@ -22,7 +32,5 @@ public class Activity extends BaseEntity {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
-	
 
 }
