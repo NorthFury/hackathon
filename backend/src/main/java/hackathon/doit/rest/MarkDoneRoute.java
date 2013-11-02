@@ -1,8 +1,10 @@
 package hackathon.doit.rest;
 
+import hackathon.doit.dto.Reward;
 import hackathon.doit.model.Account;
 import hackathon.doit.model.AccountTask;
 import hackathon.doit.model.Task;
+import hackathon.doit.service.CalculateRewardService;
 import spark.Request;
 import spark.Response;
 
@@ -42,9 +44,15 @@ public class MarkDoneRoute extends JsonTransformer {
 			Ebean.update(accountTask);
 			
 			response.status(201); // 201 Created
+			
+			Account user = Ebean.find(Account.class, userId);
 	        
+			CalculateRewardService calculateRewardService = new CalculateRewardService();
+			
+			Reward reward = calculateRewardService.getRewardForAccount(user);
+			
 			// return updated task
-	        return accountTask;
+	        return reward;
 		}
 	}
 

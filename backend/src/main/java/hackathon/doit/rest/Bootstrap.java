@@ -18,7 +18,6 @@ public class Bootstrap {
         Spark.get(new GetAchievementsRoute("/achievements"));
         Spark.get(new GetActivitiesRoute("/activities"));
 
-
         // tasks
         Spark.post(new PostTaskRoute("/account/:userId/task"));
         Spark.get(new GetTasksRoute("/account/:userId/tasks"));
