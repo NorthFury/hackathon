@@ -15,33 +15,42 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
     };
 
     var updateTasksContainer = function(tasksContainer) {
+        tasksContainer.html('');
+        tasksContainer.append('<thead><tr><th>Activity</th><th>Task</th><th>Importance</th><th>Done</th><th>Achievement</th></tr></thead>');
+        var newContainer = $('<tbody/>');
+        tasksContainer.append(newContainer);
+        tasksContainer = newContainer;
+
         var userId = settings.login.account.id;
 
         $.getJSON('/account/' + userId + '/tasks', function(data) {
             data.push({
-                id: 1,
-                name: "Task 1",
+                task: {
+                    id: 1,
+                    name: "Task 1"
+                },
                 activity: {
                     id: 1,
                     name: "Sports"
-                }
+                },
+                done: true,
+                importance: 5
             });
             data.push({
-                id: 2,
-                name: "Task 2",
+                task: {
+                    id: 1,
+                    name: "Task 1"
+                },
                 activity: {
                     id: 1,
-                    name: "House"
-                }
+                    name: "Sports"
+                },
+                done: false,
+                importance: 4
             });
 
             for (var i = 0; i < data.length; i++) {
-                var taskObject = {
-                    activity: data[i].activity.name,
-                    name: data[i].name
-                };
-
-                var taskElement = $(taskTemplate(taskObject));
+                var taskElement = $(taskTemplate(data[i]));
 
                 taskElement.find('.doIt').on('click', buildDoItOnClick(userId, data[i].id));
                 tasksContainer.append(taskElement);
@@ -50,7 +59,7 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
     };
 
     return function(container) {
-        var tasksContainer = $('<div/>');
+        var tasksContainer = $('<table class="table"/>');
 
         updateTasksContainer(tasksContainer);
 

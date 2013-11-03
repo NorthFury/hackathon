@@ -6,10 +6,18 @@
         <meta name="viewport" content="width=device-width">
     </head>
     <body>
-        <div>
-            <div>Activity: <%=activity%></div>
-            <div>Name: <%=name%></div>
-            <a class="doIt">DoIt</a>
-        </div>
+        <tr>
+            <td class="center"><%=activity.name%></td>
+            <td class="center"><%=task.name%></td>
+            <td class="center"><%=importance%></td>
+            <td>
+            <% if (done) { %>
+                <span class="checked-img"></span>
+            <% } else { %>
+                <span class="non-checked-img doIt"></span>
+            <% } %>
+            </td>
+            <td class="center"><span class="happy-gif"></span></td>
+        </tr>
     </body>
 </html>
