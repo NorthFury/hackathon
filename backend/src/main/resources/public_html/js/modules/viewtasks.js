@@ -8,6 +8,7 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
 
         $.getJSON('/account/' + userId + '/tasks', function(data) {
             data.push({
+            	id : 1,
                 name: "Task 1",
                 activity: {
                     id: 1,
@@ -15,6 +16,7 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
                 }
             });
             data.push({
+            	id:2,
                 name: "Task 2",
                 activity: {
                     id: 1,
@@ -25,7 +27,8 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
             for (var i = 0; i < data.length; i++) {
                 var taskObject = {
                     activity: data[i].activity.name,
-                    name: data[i].name
+                    name: data[i].name,
+                    id : i
                 };
                 
                 tasksArray.push(taskObject);

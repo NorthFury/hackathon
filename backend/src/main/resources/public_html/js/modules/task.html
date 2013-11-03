@@ -7,26 +7,30 @@
 
             <div class="panel-group" id="accordion">
                 <h3 class="glyphicon-tasks">List of tasks / edit mode</h3>
-                
-                <% _.each( taskList, function( listItem ){ %>
-                
-                <div id="task-id" class="panel panel-default task">
+
+                <button id="newTask" type="button" data-loading-text="Save" class="btn btn-default btn-group-justified btn-group-lg ">
+                    <span class="glyphicon-plus"> </span>  New task
+                </button>
+
+                <div id="task-new" class="panel panel-default task" style="display: none;">
+
+
                     <div class="panel-heading">
-                        <h4 id="taskTitle"  class="panel-title">
-                            <%- listItem.name %>
-							<%= listItem.activity %>
+                        <h4 class="panel-title">
+                            ...
+
                         </h4>
-                        <a class="editSaveButton" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            <span class="edit"><span class="glyphicon-edit"></span>Edit</span>
-                            <span class="save"><span class="glyphicon-save"></span>Save</span>
+                        <a id="editSave_new" class="editSaveButton" data-toggle="collapse" data-parent="#accordion" href="#collapseOneNew">
+                            <span class="edit" style="display:none;"><span class="glyphicon-edit"></span>Edit</span>
+                            <span class="save" ><span class="glyphicon-save"></span>Save</span>
                         </a>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
+                    <div id="collapseOneNew" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="col-lg-6">
                                 <div class="btn-group activities">
                                     <button type="button" class="btn btn-default btn-activity btn-group-justified btn-info dropdown-toggle " data-toggle="dropdown">
-                                        Activity type <span class="caret"></span>
+                                        Activity type  <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#">Healthcare</a></li>
@@ -53,12 +57,58 @@
                         </div>
                     </div>
                 </div>
+                <div id="newTasks">
+
+                </div>
+
+                
+                <% _.each( taskList, function( listItem ){ %>
+                
+                <div id="task-id" class="panel panel-default task">
+                    <div class="panel-heading">
+                        <h4 id="taskTitle_<%= listItem.id %>"  class="panel-title">
+                            <%- listItem.name %>
+							<%= listItem.activity %>
+                        </h4>
+                        <a id="editSave_<%= listItem.id  %>" class="editSaveButton" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= listItem.id %>">
+                            <span class="edit"><span class="glyphicon-edit"></span>Edit</span>
+                            <span class="save"><span class="glyphicon-save"></span>Save</span>
+                        </a>
+                    </div>
+                    <div id="collapse_<%= listItem.id %>" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="col-lg-6">
+                                <div class="btn-group activities">
+                                    <button id="dropdown_<%= listItem.id %>" type="button" class="btn btn-default btn-activity btn-group-justified btn-info dropdown-toggle " data-toggle="dropdown">
+                                        Activity type <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Healthcare</a></li>
+                                        <li><a href="#">Sports</a></li>
+                                        <li><a href="#">Creativity</a></li>
+                                        <li><a href="#">Reading</a></li>
+                                        <li><a href="#">Chores @ home</a></li>
+                                        <li><a href="#">Leisure</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="importance">
+                                    <h6 class="btn">Importance</h6>
+                                    <div id="slider_<%= listItem.id %>" class="slider slider-horizontal" style="width: 160px;">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <textarea id="taskArea_<%= listItem.id %>" onchange="changeH4()">
+
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
                 
                 <% }); %>
-                
-                <button type="button" data-loading-text="Save" class="btn btn-default btn-group-justified btn-group-lg ">
-                    <span class="glyphicon-plus"> </span>  New task
-                </button>
 
                 <button id="saveList" type="button" data-loading-text="Save" class="btn btn-success btn-group-lg glyphicon-plus ">
                     Save list
@@ -70,6 +120,44 @@
             $('.dropdown-toggle').dropdown() ;
             $(".collapse").collapse();
             $('.slider').slider();
+            $('#newTask').on('click',function(){
+
+                clearTask($("#"+this.id));
+                $("#"+this.id).hide();
+                $("#collapseOneNew").addClass("in");
+                $("#collapseOneNew").attr("style","height:auto;");
+                $('#task-new').slideDown();
+
+            });
+            $(".editSaveButton").click(function(){
+                var elThis=$("#"+this.id);
+//                var parent=elThis.parent("div.task");
+                var hrefThis=this.href.split('#');
+                var elCollapse=$("#"+hrefThis[1]);
+                if(elCollapse.hasClass("in")){
+                    elThis.children('span.edit').show();
+                    elThis.children('span.save').hide();
+//                    this is save
+                    $("#newTask").show();
+                    var task=$('#task-new');
+                    var newHtmltoAppend=task.html();
+                    var classesToAdd=task.attr("class");
+                    var oldHtml=$("#newTasks").html();
+                   $("#newTasks").html("<div class='"+classesToAdd+"'>"+newHtmltoAppend+"</div>"+oldHtml);
+
+
+                }
+                else{
+                    elThis.children('span.edit').hide();
+                    elThis.children('span.save').show();
+                }
+            }) ;
+            function clearTask(el){
+                el.children("h4.panel-title").html("...");
+                el.children("h4.panel-title").html("...");
+                el.children("textarea").html("...");
+
+            }
         </script>
 
         <!--end template-->
