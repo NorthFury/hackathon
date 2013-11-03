@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($, _, settings, taskTemplateString) {
     var taskTemplate = _.template(taskTemplateString);
 
-    var buildDoItOnClick = function(userId, taskId) {
+    var buildDoItOnClick = function(userId, taskId, tasksContainer) {
         return function() {
             $.ajax({
                 url: 'account/' + userId + '/task/' + taskId + '/markDone',
@@ -9,6 +9,7 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
+                    updateTasksContainer(tasksContainer);
                 }
             });
         };
@@ -17,9 +18,8 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
     var updateTasksContainer = function(tasksContainer) {
         tasksContainer.html('');
         tasksContainer.append('<thead><tr><th>Activity</th><th>Task</th><th>Importance</th><th>Done</th><th>Achievement</th></tr></thead>');
-        var newContainer = $('<tbody/>');
-        tasksContainer.append(newContainer);
-        tasksContainer = newContainer;
+        var tbodyContainer = $('<tbody/>');
+        tasksContainer.append(tbodyContainer);
 
         var userId = settings.login.account.id;
 
@@ -53,7 +53,7 @@ define(['jquery', 'underscore', 'settings', 'text!task.html!strip'], function($,
                 var taskElement = $(taskTemplate(data[i]));
 
                 taskElement.find('.doIt').on('click', buildDoItOnClick(userId, data[i].id));
-                tasksContainer.append(taskElement);
+                tbodyContainer.append(taskElement);
             }
         });
     };
